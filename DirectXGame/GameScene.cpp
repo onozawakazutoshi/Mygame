@@ -27,8 +27,10 @@ void GameScene::Update() {
 	camera_.UpdateMatrix();
 }
 
-void GameScene::Draw(ID3D12GraphicsCommandList* commandList) { 
+void GameScene::Draw(ID3D12GraphicsCommandList* commandList) {
+	
+	enemy_->Drow(commandList, camera_); 
 	map_->Draw(commandList,camera_);
 	
-	enemy_->Drow(commandList, camera_);
+	
 }
