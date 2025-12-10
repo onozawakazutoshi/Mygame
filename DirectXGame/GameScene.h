@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Enemy.h"
 #include "input/Input.h"
+#include "Guardian.h"
 
 using namespace KamataEngine;
 
@@ -20,4 +21,7 @@ private:
 	float R = 0.0f;
 	float W = 0.0f;
 	Input* input_ = nullptr;
+	Guardian* guardian_ = new Guardian();
+	Input* input = Input::GetInstance();
+	float ne = -80.0f;
 };

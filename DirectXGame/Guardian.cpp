@@ -49,10 +49,11 @@ void Guardian::Initialize(Map* map_) {
 	}
 	uint32_t tex = TextureManager::Load("white1x1.png");
 
-	enemySprite = Sprite::Create(tex, {postooo.x, postooo.y}, {1, 0, 0, 1}, {1.0f, 1.0f}, false, false);
-	enemySprite->SetSize({100, 100});
+	enemySprite = Sprite::Create(tex, {postooo.x, postooo.y}, {1, 0, 0, 0.3f}, {0.5f, 0.5f}, false, false);
+	enemySprite->SetSize({30, 30});
 	worldTransform_.Initialize();
 	model_ = Model::CreateFromOBJ("cube");
+	input_ = Input::GetInstance();
 
 	for (int i = 0; i < Y; i++) {
 		for (int j = 0; j < X; j++) {
@@ -67,7 +68,9 @@ void Guardian::Initialize(Map* map_) {
 				startpos[1] = 0;
 			}
 			if (m[i][j] == 5) {
-				golepos[0] = i;
+				startpos[0] = i + 1;
+				startpos[1] = j;
+				golepos[0] = i+1;
 				golepos[1] = j;
 			}
 		}
@@ -75,41 +78,59 @@ void Guardian::Initialize(Map* map_) {
 }
 
 void Guardian::Update() {
+	if (togoal) {
 
-	if (HP == 1) {
-		ispos[0] = startpos[0];
-		ispos[1] = startpos[1];
-		record[0].ispos[0] = ispos[0];
-		record[0].ispos[1] = ispos[1];
-		record[0].alive = true;
-		// if (posrecord == nullptr) {
-		Road(count);
-	}
-	for (int i = 0; i < 1000; i++) {
-		courseefect_->positionInitialize(Vector2((float)posrecord[i].ispos[0], (float)posrecord[i].ispos[1]), i);
-	}
-	// 経路上の現在の位置情報を取得して postooo に反映
-	postooo.x = (float)Map_->Getmappos(posrecord[roadMaxcount - (int)run].ispos[0], posrecord[roadMaxcount - (int)run].ispos[1]).x + Map_->GetMapSize().x / 2;
-	postooo.y = (float)Map_->Getmappos(posrecord[roadMaxcount - (int)run].ispos[0], posrecord[roadMaxcount - (int)run].ispos[1]).y + Map_->GetMapSize().y / 2;
+		if (HP == 1) {
+			ispos[0] = startpos[0];
+			ispos[1] = startpos[1];
+			record[0].ispos[0] = ispos[0];
+			record[0].ispos[1] = ispos[1];
+			record[0].alive = true;
+			// if (posrecord == nullptr) {
+			Road(count);
+		}
+		for (int i = 0; i < 1000; i++) {
+			courseefect_->positionInitialize(Vector2((float)posrecord[i].ispos[0], (float)posrecord[i].ispos[1]), i);
+		}
+		// 経路上の現在の位置情報を取得して postooo に反映
+		postooo.x = (float)Map_->Getmappos(posrecord[roadMaxcount - (int)run].ispos[0], posrecord[roadMaxcount - (int)run].ispos[1]).x + Map_->GetMapSize().x / 2;
+		postooo.y = (float)Map_->Getmappos(posrecord[roadMaxcount - (int)run].ispos[0], posrecord[roadMaxcount - (int)run].ispos[1]).y + Map_->GetMapSize().y / 2;
 
-	enemySprite->SetPosition(postooo);
-	saiki_num = 0;
-	worldTransform_.translation_ = Vector3{postooo.x - 2.5f, postooo.y - 2.5f, -3};
-	worldTransform_.scale_ = Vector3{2.0f, 2.0f, 2.0f};
-	worldTransform_.UpdateMatrix();
+		enemySprite->SetPosition(postooo);
+		saiki_num = 0;
+		worldTransform_.translation_ = Vector3{postooo.x - 2.5f, postooo.y - 2.5f, -3};
+		worldTransform_.scale_ = Vector3{2.0f, 2.0f, 2.0f};
+		worldTransform_.UpdateMatrix();
 
-	if (run < roadMaxcount + 0.9) {
-		run += 0.03f;
-	} else {
-		run = 0;
+		if (run < roadMaxcount + 0.9) {
+			
+			run += 0.03f;
+		} else {
+			run = 0;
+			startpos[0] = golepos[0];
+			startpos[1] = golepos[1];
+			
+		}
 	}
 }
 
 void Guardian::Draw(ID3D12GraphicsCommandList* commandList, Camera& camera) {
 	Model::PreDraw(commandList);
 	// courseefect_->Draw(camera);
-	model_->Draw(worldTransform_, camera);
+	//model_->Draw(worldTransform_, camera);
+	camera;
 	Model::PostDraw();
+	Sprite::PreDraw(commandList);
+	if (input_->IsPressMouse(0)) {
+		enemySprite->SetPosition(input_->GetMousePosition());
+		enemySprite->SetRotation(rotation);
+		enemySprite->Draw();
+
+		rotation += 0.1f;
+	}
+	Sprite::PostDraw();
+
+
 }
 
 void Guardian::Resount(Map* map_) {
@@ -159,6 +180,11 @@ void Guardian::Resount(Map* map_) {
 		posrecord[i].ispos[1] = NULL;
 		posrecord[i].score = NULL;
 	}
+}
+
+void Guardian::Mousclicked() { 
+	//if (input_->GetMousePosition().x)
+
 }
 
 int Guardian::saiki_num = 0;
@@ -232,7 +258,7 @@ void Guardian::Road(int Count) {
 			for (int i = 1; i < recordcount + 1; i++) {
 				for (int j = 1; j < recordcount; j++) {
 					if (record[i].score < record[j].score) {
-						roadData a = record[i];
+						roadData2 a = record[i];
 						record[i] = record[j];
 						record[j] = a;
 					}

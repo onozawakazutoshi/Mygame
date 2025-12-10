@@ -71,6 +71,10 @@ private:
 
 	Courseefect* courseefect_ = nullptr;
 
+	ObjectColor objectColor_;
+
+	Input* input_ = nullptr;
+
 public:
 	void Initialize(Map* map_);
 	void Updete();

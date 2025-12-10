@@ -5,6 +5,14 @@ void Map::Initialize() {
 	redSprite = Sprite::Create(tex, {0, 0}, {1, 0, 0, 0}, {0.5, 0.5}, true);
 	redSprite->SetTextureHandle(tex);
 
+	objectColorW_.Initialize();
+	objectColorW_.SetColor({1, 1, 1, 1});
+	objectColorB_.Initialize();
+	objectColorB_.SetColor({0, 0, 1, 1});
+
+	objectColorR_.Initialize();
+	objectColorR_.SetColor({1, 0, 0, 1});
+
 	for (int i = 0; i < height_; i++) {
 		for (int j = 0; j < width_; j++) {
 			map_[j][i].position = {j * mapSize.x + 640 - width_ * mapSize.x / 2, i * mapSize.y + 360 - height_ * mapSize.y / 2};
@@ -69,7 +77,18 @@ void Map::Draw(ID3D12GraphicsCommandList* commandList, Camera& camera) {
 	Model::PreDraw(commandList);
 	for (int i = 0; i < height_; i++) {
 		for (int j = 0; j < width_; j++) {
-			model_[j][i]->Draw(worldTransform_[j][i], camera);
+			if (maptype[j][i] == 0) {
+				model_[j][i]->Draw(worldTransform_[j][i], camera, &objectColorW_);
+			} else if (maptype[j][i] == 5) {
+				model_[j][i]->Draw(worldTransform_[j][i], camera, &objectColorB_);
+			} else if (maptype[j][i] == 1) {
+				model_[j][i]->Draw(worldTransform_[j][i], camera, &objectColorR_);
+			} else if (maptype[j][i] == 2) {
+				model_[j][i]->Draw(worldTransform_[j][i], camera, &objectColorW_);
+			}
+		
+
+			
 		}
 	}
 	Model::PostDraw();

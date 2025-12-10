@@ -58,6 +58,10 @@ void Enemy::Initialize(Map* map_)
 	enemySprite->SetSize({100, 100});
 	worldTransform_.Initialize();
 	model_ = Model::CreateFromOBJ("cube");
+	objectColor_.Initialize();
+	objectColor_.SetColor({0.0f, 0.0f, 0.0f, 1.0f});
+
+	input_ = Input::GetInstance();
 
 	for (int i = 0; i < Y; i++) {
 		for (int j = 0; j < X; j++) {
@@ -158,15 +162,20 @@ void Enemy::Updete()
 
 	enemySprite->SetPosition(postooo);
 	saiki_num = 0;
-	worldTransform_.translation_ = Vector3{postooo.x-2.5f,postooo.y-2.5f,-40};
+	worldTransform_.translation_ = Vector3{postooo.x-2.5f,postooo.y-2.5f,-4};
 	worldTransform_.scale_ = Vector3{2.0f, 2.0f, 2.0f};
 	worldTransform_.UpdateMatrix();
 
 	if (run < roadMaxcount + 0.9) {
-		run += 0.03f;
+		if (input_->IsPressMouse(1)) {
+			run += 0.001f;
+		} else {
+			run += 0.03f;
+		}
 	} else {
 		run = 0;
 	}
+	
 }
 
 int Enemy::saiki_num = 0;
@@ -297,6 +306,6 @@ void Enemy::Road(int Count)
 void Enemy::Drow(ID3D12GraphicsCommandList* commandList, Camera& camera) {
 	Model::PreDraw(commandList);
 	//courseefect_->Draw(camera);
-	model_->Draw(worldTransform_, camera);
+	model_->Draw(worldTransform_, camera, &objectColor_);
 	Model::PostDraw();
 }

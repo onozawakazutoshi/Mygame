@@ -10,7 +10,7 @@
 using namespace KamataEngine;
 
 class Map;
-struct roadData {
+struct roadData2 {
 	int ispos[2];
 	int backpos[2];
 	int score;
@@ -33,7 +33,7 @@ public:
 		return -1; // 範囲外のときのエラー処理
 	}
 
-	roadData GetPosition() const {
+	roadData2 GetPosition() const {
 		if (recordcount > 0) {
 			return posrecord[recordcount - 1]; // 最新の座標データ
 		}
@@ -48,6 +48,8 @@ public:
 	int GetHP() { return HP; }
 	int SetHP(int h) { return HP = h; }
 
+	void Mousclicked();
+
 
 private:
 	static const int X = 10;
@@ -56,8 +58,8 @@ private:
 	int m[Y][X];
 
 	bool goflag = false;
-	roadData record[1000];
-	roadData ima;
+	roadData2 record[1000];
+	roadData2 ima;
 	int copy[Y][X];
 
 	int ispos[2];
@@ -66,7 +68,7 @@ private:
 
 	int recordcount = 0;
 
-	roadData posrecord[1000];
+	roadData2 posrecord[1000];
 
 	float run = 0;
 
@@ -100,4 +102,7 @@ private:
 
 	bool togoal = false;
 
+	Input* input_;
+
+	float rotation = 0.0f;
 };

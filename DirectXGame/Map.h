@@ -50,7 +50,11 @@ private:
 
 	WorldTransformEx worldTransform_[width_][height_];
 
-	ObjectColor objectColor_;
+	ObjectColor objectColorW_;
+
+	ObjectColor objectColorB_;
+
+	ObjectColor objectColorR_;
 
 	int time_ = 0;	
 
