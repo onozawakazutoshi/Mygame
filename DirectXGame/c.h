@@ -7,8 +7,8 @@ using namespace KamataEngine;
 class c {
 public:
 	void Initialize();
-	void Update();
-	void Draw(ID3D12GraphicsCommandList* commandList);
+	virtual void Update();
+	virtual	void Draw(ID3D12GraphicsCommandList* commandList);
 
 	void Acc();
 

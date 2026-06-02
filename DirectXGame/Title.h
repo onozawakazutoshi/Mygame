@@ -5,13 +5,17 @@
 
 using namespace KamataEngine;
 
+class Scene {
+public:
+	virtual void Update() = 0;
+	virtual void Draw(ID3D12GraphicsCommandList* commandList) = 0;
+};
 
-
-class Title {
+class Title : public Scene {
 public:
 	void Initialize();
-	void Update();
-	void Draw(ID3D12GraphicsCommandList* commandList);
+	void Update() override;
+	void Draw(ID3D12GraphicsCommandList* commandList) override;
 
 	void Acc();
 
