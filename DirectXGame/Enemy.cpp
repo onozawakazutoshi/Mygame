@@ -169,7 +169,11 @@ void Enemy::Updete()
 	if (run < roadMaxcount + 0.9) {
 		if (input_->IsPressMouse(1)) {
 			run += 0.001f;
-		} else {
+		}
+		else if (input_->IsPressMouse(0)) {
+			run += 0.000f;
+		}
+		else {
 			run += 0.03f;
 		}
 	} else {

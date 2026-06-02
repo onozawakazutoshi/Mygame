@@ -32,6 +32,10 @@ void Title::Initialize() {
 
 	input_ = Input::GetInstance();
 
+    bioverflage_ = false; // 座標1000を超えたどうか
+
+	gemeChange_ = false;
+
 }
 
 void Title::Update() {

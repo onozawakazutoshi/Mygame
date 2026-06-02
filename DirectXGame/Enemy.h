@@ -92,9 +92,12 @@ public:
 		return -1; // 範囲外のときのエラー処理
 	}
 
-	roadData GetPosition() const {
+	Vector2 GetPosition() const {
 		if (recordcount > 0) {
-			return posrecord[recordcount - 1];  // 最新の座標データ
+			int x = recordcount - 1;
+
+			return Vector2{(float)posrecord[x].ispos[0], (float)posrecord[x].ispos[1]
+		}; // 最新の座標データ
 		}
 		return {};  // 初期化された `roadData` を返す
 	}
@@ -105,5 +108,5 @@ public:
 	bool SetNotRoad(bool Not) { return NotRoad = Not; }
 
 	int GetHP() { return HP; }
-	int SetHP(int h) { return HP = h; }
+	void Damage() { HP--; }
 };

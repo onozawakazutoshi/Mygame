@@ -37,14 +37,13 @@ void GameScene::Update() {
 	camera_.rotation_ = Vector3{W,R,0};
 	camera_.UpdateMatrix();
 
-	guardian_->Mousclicked();
+	//guardian_->Mousclicked();
 }
 
 void GameScene::Draw(ID3D12GraphicsCommandList* commandList) {
 	
 	guardian_->Draw(commandList, camera_);
 	enemy_->Drow(commandList, camera_); 
-	map_->Draw(commandList,camera_);
-	
+	map_->Draw(commandList, camera_);
 	
 }

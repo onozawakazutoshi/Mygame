@@ -5,6 +5,8 @@
 #include "3d/Model.h"
 #include"WorldTransformEx.h"
 #include "Courseefect.h"
+#include "3d/Camera.h"
+
 
 
 using namespace KamataEngine;
@@ -49,7 +51,6 @@ public:
 	int SetHP(int h) { return HP = h; }
 
 	void Mousclicked();
-
 
 private:
 	static const int X = 10;
@@ -105,4 +106,10 @@ private:
 	Input* input_;
 
 	float rotation = 0.0f;
+
+	WorldTransformEx worldTransform3DReticle_;
+
+	Camera viewprojection_;
+
+	Vector2 mousPoint_;
 };

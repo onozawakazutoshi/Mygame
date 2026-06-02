@@ -75,6 +75,9 @@ void Guardian::Initialize(Map* map_) {
 			}
 		}
 	}
+
+	worldTransform3DReticle_.Initialize();
+	viewprojection_.Initialize();
 }
 
 void Guardian::Update() {
@@ -117,7 +120,8 @@ void Guardian::Update() {
 void Guardian::Draw(ID3D12GraphicsCommandList* commandList, Camera& camera) {
 	Model::PreDraw(commandList);
 	// courseefect_->Draw(camera);
-	//model_->Draw(worldTransform_, camera);
+	
+	model_->Draw(worldTransform_, camera);
 	camera;
 	Model::PostDraw();
 	Sprite::PreDraw(commandList);
@@ -184,6 +188,32 @@ void Guardian::Resount(Map* map_) {
 
 void Guardian::Mousclicked() { 
 	//if (input_->GetMousePosition().x)
+	mousPoint_ = input_->GetMousePosition();
+
+
+	Matrix4x4 matViewport = worldTransform_.MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
+	Matrix4x4 matVPV = worldTransform_.Multiply(worldTransform_.Multiply(viewprojection_.matView, viewprojection_.matProjection), matViewport);
+
+	Matrix4x4 matInverseVPV = worldTransform_.Inverse(matVPV);
+
+	Vector3 posNear = Vector3((float)mousPoint_.x, (float)mousPoint_.y, 0);
+	Vector3 posFar = Vector3((float)mousPoint_.x, (float)mousPoint_.y, 1);
+
+	posNear = worldTransform_.Transform(posNear, matInverseVPV);
+	posFar = worldTransform_.Transform(posFar, matInverseVPV);
+
+	Vector3 mouseDirection = {posFar.x - posNear.x, posFar.y - posNear.y, 0};
+	mouseDirection = worldTransform_.Nomaliz(mouseDirection);
+
+	const float kDistanceTestObject = 50.0f;
+
+	worldTransform3DReticle_.translation_ = {(posNear.x + mouseDirection.x) * kDistanceTestObject, (posNear.y + mouseDirection.y) * kDistanceTestObject, 0};
+
+	worldTransform3DReticle_.UpdateMatrix();
+
+	Vector3 positionReticle = worldTransform3DReticle_.translation_;
+
+	positionReticle = worldTransform_.Transform(positionReticle, matVPV);
 
 }
 

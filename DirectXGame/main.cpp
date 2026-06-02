@@ -4,6 +4,7 @@
 #include "Title.h"
 #include "TitleChange.h"
 #include "c.h"
+#include "input/Input.h"
 	
 using namespace KamataEngine;
 
@@ -11,6 +12,7 @@ GameScene* gameScene = new GameScene();
 Title* title = new Title();
 TitleChange* titleChange = new TitleChange();
 c* C = new c();
+Input* input = Input::GetInstance();
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
@@ -28,6 +30,10 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			break;
 		}
 		gameScene->Update();
+		if (Input::GetInstance()->PushKey(DIK_R)) {
+				switch_on = 0;
+			title->Initialize();
+		}
 
 		switch (switch_on) {
 		default:
@@ -45,6 +51,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			break;
 
 		case 1:
+			
+
 			dxCommon->PreDraw();
 			gameScene->Draw(dxCommon->GetCommandList());
 			dxCommon->PostDraw();
