@@ -77,9 +77,8 @@ public:
 	virtual void Road(int count)=0;
 	virtual void Drow(ID3D12GraphicsCommandList* commandList, Camera& camera)=0;
 
-	virtual bool GetNotRoad() {
-		return NotRoad;
-	}
+	virtual bool GetNotRoad() { return NotRoad; }
+	
 
 	virtual int getValue(int row, int col) const {
 		if (row >= 0 && row < Y && col >= 0 && col < X) {
