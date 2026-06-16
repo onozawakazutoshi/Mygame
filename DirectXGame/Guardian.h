@@ -5,6 +5,7 @@
 #include "3d/Model.h"
 #include"WorldTransformEx.h"
 #include "Courseefect.h"
+#include "Enemy.h"
 
 
 using namespace KamataEngine;
@@ -17,12 +18,12 @@ struct roadData {
 	bool alive = true;
 };
 
-class Guardian {
+class Guardian : public Enemy{
 public:
-	void Initialize(Map* map_);
-	void Update();
-	void Draw(ID3D12GraphicsCommandList* commandList, Camera& camera);
-	void Road(int count);
+	void Initialize(Map* map_) override;
+	void Updete() override;
+	void Drow(ID3D12GraphicsCommandList* commandList, Camera& camera) override;
+	void Road(int count) override;
 
 	bool GetNotRoad() { return NotRoad; }
 
@@ -33,7 +34,7 @@ public:
 		return -1; // 範囲外のときのエラー処理
 	}
 
-	roadData GetPosition() const {
+	roadData GetPosition(){
 		if (recordcount > 0) {
 			return posrecord[recordcount - 1]; // 最新の座標データ
 		}
