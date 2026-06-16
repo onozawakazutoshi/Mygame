@@ -5,6 +5,7 @@
 #include "3d/Model.h"
 #include"WorldTransformEx.h"
 #include "Courseefect.h"
+#include "Base.h"
 
 using namespace KamataEngine;
 
@@ -16,8 +17,7 @@ struct roadData {
 	bool alive = true;
 };
 
-class Enemy
-{
+class Enemy : public Base {
 
 
 private:
@@ -72,33 +72,32 @@ private:
 	Courseefect* courseefect_ = nullptr;
 
 public:
-	virtual void Initialize(Map* map_)=0;
-	virtual void Updete()=0;
-	virtual void Road(int count)=0;
-	virtual void Drow(ID3D12GraphicsCommandList* commandList, Camera& camera)=0;
+	void Initialize(Map* map_) override;
+	void Updete() override;
+	void Drow(ID3D12GraphicsCommandList* commandList, Camera& camera) override;
+	void Road(int count) override;
 
-	virtual bool GetNotRoad() { return NotRoad; }
-	
+	bool GetNotRoad() { return NotRoad; }
 
-	virtual int getValue(int row, int col) const {
+	int getValue(int row, int col) const {
 		if (row >= 0 && row < Y && col >= 0 && col < X) {
 			return m[row][col];
 		}
 		return -1; // 範囲外のときのエラー処理
 	}
 
-	roadData GetPosition() const {
+	roadData GetPosition() {
 		if (recordcount > 0) {
-			return posrecord[recordcount - 1];  // 最新の座標データ
+			return posrecord[recordcount - 1]; // 最新の座標データ
 		}
-		return {};  // 初期化された `roadData` を返す
+		return {}; // 初期化された `roadData` を返す
 	}
 
 	static int saiki_num;
 
-	virtual void Resount(Map* map_);
-	virtual bool SetNotRoad(bool Not) { return NotRoad = Not; }
+	void Resount(Map* map_) override;
+	bool SetNotRoad(bool Not) { return NotRoad = Not; }
 
-	virtual int GetHP() { return HP; }
-	virtual int SetHP(int h) { return HP = h; }
+	int GetHP() { return HP; }
+	int SetHP(int h) { return HP = h; }
 };

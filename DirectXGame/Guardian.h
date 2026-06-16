@@ -43,7 +43,7 @@ public:
 
 	static int saiki_num;
 
-	void Resount(Map* map_);
+	void Resount(Map* map_) override;
 	bool SetNotRoad(bool Not) { return NotRoad = Not; }
 
 	int GetHP() { return HP; }

@@ -4,6 +4,7 @@
 #include"KamataEngine.h"
 #include "Map.h"
 
+
 void Enemy::Initialize(Map* map_)
 {
 	for (int i = 0;i < Y;i++) {

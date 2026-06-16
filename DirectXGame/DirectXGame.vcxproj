@@ -107,6 +107,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Base.cpp" />
     <ClCompile Include="c.cpp" />
     <ClCompile Include="Courseefect.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -194,6 +195,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="c.h" />
     <ClInclude Include="Courseefect.h" />
     <ClInclude Include="Enemy.h" />
