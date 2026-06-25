@@ -21,7 +21,6 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	gameScene->Initialize();
 	title->Initialize();
 	titleChange->Initialize();
-	int switch_on = 0;
 	C->Initialize();
 
 	while (true) {
