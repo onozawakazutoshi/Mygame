@@ -4,6 +4,7 @@
 #include "Title.h"
 #include "TitleChange.h"
 #include "c.h"
+#include "SceneManager.h"
 	
 using namespace KamataEngine;
 
@@ -11,6 +12,7 @@ GameScene* gameScene = new GameScene();
 Title* title = new Title();
 TitleChange* titleChange = new TitleChange();
 c* C = new c();
+SceneManager* manager = new SceneManager();
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
@@ -29,7 +31,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		}
 		gameScene->Update();
 
-		switch (switch_on) {
+		/*switch (switch_on) {
 		default:
 			break;
 		case 0:
@@ -72,7 +74,14 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			dxCommon->PostDraw();
 			
 			break;
-		}
+		}*/
+		manager->Update();
+
+		dxCommon->PreDraw();
+
+		manager->Draw(dxCommon->GetCommandList());
+
+		dxCommon->PostDraw();
 	
 		
 		

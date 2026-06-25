@@ -1,9 +1,9 @@
 #pragma once
-
+#include "SceneState.h"
 #include "KamataEngine.h"
 
 using namespace KamataEngine;
-class TitleChange {
+class TitleChange : public SceneState {
 	
 public:
 	void Initialize();

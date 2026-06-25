@@ -3,10 +3,11 @@
 #include "Map.h"
 #include "Enemy.h"
 #include "input/Input.h"
+#include "SceneState.h"
 
 using namespace KamataEngine;
 
-class GameScene {
+class GameScene : public SceneState {
 public:
 	
 	void Initialize();

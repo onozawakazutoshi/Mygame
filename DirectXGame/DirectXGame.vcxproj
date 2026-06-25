@@ -115,6 +115,8 @@
     <ClCompile Include="Guardian.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneState.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TitleChange.cpp" />
     <ClCompile Include="WorldTransformEx.cpp" />
@@ -202,6 +204,8 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Guardian.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneState.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="TitleChange.h" />
     <ClInclude Include="WorldTransformEx.h" />

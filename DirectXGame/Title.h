@@ -1,17 +1,11 @@
 #pragma once
 #include "KamataEngine.h"
-
+#include "SceneState.h"
 #include <iostream>
 
 using namespace KamataEngine;
 
-class Scene {
-public:
-	virtual void Update() = 0;
-	virtual void Draw(ID3D12GraphicsCommandList* commandList) = 0;
-};
-
-class Title : public Scene {
+class Title : public SceneState {
 public:
 	void Initialize();
 	void Update() override;
