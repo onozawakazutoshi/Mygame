@@ -31,50 +31,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		}
 		gameScene->Update();
 
-		/*switch (switch_on) {
-		default:
-			break;
-		case 0:
-
-			title->Update();
-			dxCommon->PreDraw();
-			title->Draw(dxCommon->GetCommandList());
-			dxCommon->PostDraw();
-
-			if (title->IsGameChange()) {
-				switch_on = 2;
-			}
-			break;
-
-		case 1:
-			dxCommon->PreDraw();
-			gameScene->Draw(dxCommon->GetCommandList());
-			dxCommon->PostDraw();
-
-			break;
-
-		case 2:
-			titleChange->Update();
-			dxCommon->PreDraw();
-			if (titleChange->IsTitleChange()) {
-				title->Draw(dxCommon->GetCommandList());
-			} else {
-				gameScene->Draw(dxCommon->GetCommandList());
-				switch_on = 2;
-			}
-			titleChange->Draw(dxCommon->GetCommandList());
-			dxCommon->PostDraw();
-
-			break;
-
-		case 3:
-			C->Update();
-			dxCommon->PreDraw();
-			C->Draw(dxCommon->GetCommandList());
-			dxCommon->PostDraw();
-			
-			break;
-		}*/
+		
 		manager->Update();
 
 		dxCommon->PreDraw();
